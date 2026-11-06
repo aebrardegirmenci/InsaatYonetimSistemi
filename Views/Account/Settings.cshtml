@@ -1,0 +1,91 @@
+﻿@model InsaatYonetimi.Models.User
+
+@{
+    ViewData["Title"] = "Ayarlar";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Ayarlar</h1>
+            <p>Kullanıcı bilgilerinizi düzenleyin.</p>
+        </div>
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="back-button">
+
+            <i class="bi bi-arrow-left"></i>
+            Ana Sayfaya Dön
+
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <form asp-action="Settings" method="post">
+
+            <div class="form-section">
+
+                <h2>Kullanıcı Bilgileri</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-item">
+                        <label>Ad Soyad</label>
+
+                        <input asp-for="Name"
+                               class="form-control" />
+                    </div>
+
+                    <div class="form-item">
+                        <label>Kullanıcı Adı</label>
+
+                        <input asp-for="UserName"
+                               class="form-control" />
+                    </div>
+
+                    <div class="form-item">
+                        <label>E-posta</label>
+
+                        <input asp-for="Email"
+                               class="form-control" />
+                    </div>
+
+                    <div class="form-item">
+                        <label>Şirket Adı</label>
+
+                        <input asp-for="Company.Name"
+                               class="form-control" />
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="cancel-button">
+                    İptal
+                </a>
+
+                <button type="submit"
+                        class="save-button">
+
+                    <i class="bi bi-check-lg"></i>
+                    Değişiklikleri Kaydet
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

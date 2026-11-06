@@ -1,0 +1,155 @@
+﻿@model InsaatYonetimi.Models.Work
+
+@{
+    ViewData["Title"] = "Yeni İşçilik";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Yeni İşçilik</h1>
+            <p>Bir işçinin projede çalışmasını kaydedin.</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            İşçiliklere Dön
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <form asp-action="Create" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <div class="form-section">
+
+                <h2>İşçilik Bilgileri</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-item">
+
+                        <label asp-for="WorkerId">
+                            İşçi
+                        </label>
+
+                        <select asp-for="WorkerId"
+                                class="form-control">
+
+                            <option value="">
+                                İşçi seçin
+                            </option>
+
+                            @foreach (var worker in ViewBag.Workers)
+                            {
+                                <option value="@worker.WorkerId">
+                                    @worker.Name - @worker.Job
+                                </option>
+                            }
+
+                        </select>
+
+                        <span asp-validation-for="WorkerId"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-item">
+
+                        <label asp-for="ProjectId">
+                            Proje
+                        </label>
+
+                        <select asp-for="ProjectId"
+                                class="form-control">
+
+                            <option value="">
+                                Proje seçin
+                            </option>
+
+                            @foreach (var project in ViewBag.Projects)
+                            {
+                                <option value="@project.ProjectId">
+                                    @project.Name
+                                </option>
+                            }
+
+                        </select>
+
+                        <span asp-validation-for="ProjectId"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-item">
+
+                        <label asp-for="StartDate">
+                            Başlangıç Tarihi
+                        </label>
+
+                        <input asp-for="StartDate"
+                               type="date"
+                               class="form-control" />
+
+                        <span asp-validation-for="StartDate"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-item">
+
+                        <label asp-for="DayCount">
+                            Çalışma Süresi
+                        </label>
+
+                        <input asp-for="DayCount"
+                               type="number"
+                               min="1"
+                               class="form-control"
+                               placeholder="Örn. 20" />
+
+                        <span asp-validation-for="DayCount"
+                              class="text-danger"></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <a asp-action="Index"
+                   class="cancel-button">
+                    İptal
+                </a>
+
+                <button type="submit"
+                        class="save-button">
+
+                    <i class="bi bi-check-lg"></i>
+                    İşçiliği Kaydet
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

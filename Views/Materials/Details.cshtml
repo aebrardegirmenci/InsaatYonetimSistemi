@@ -1,0 +1,90 @@
+﻿@model InsaatYonetimi.Models.Material
+
+@{
+    ViewData["Title"] = "Malzeme Detayı";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+        <div>
+            <h1>Malzeme Detayı</h1>
+            <p>Malzeme bilgilerini görüntüleyin.</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Malzemelere Dön
+        </a>
+    </div>
+
+    <div class="project-form-card">
+
+        <div class="form-section">
+
+            <h2>Malzeme Bilgileri</h2>
+
+            <div class="form-grid">
+
+                <div class="form-item">
+                    <label>Malzeme Adı</label>
+                    <input class="form-control" value="@Model.Name" readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Kategori</label>
+                    <input class="form-control" value="@Model.Category" readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Proje</label>
+                    <input class="form-control" value="@Model.Project.Name" readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Tedarikçi</label>
+                    <input class="form-control" value="@Model.Supplier.Name" readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Miktar</label>
+                    <input class="form-control" value="@Model.Quantity @Model.Unit" readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Birim Fiyat</label>
+                    <input class="form-control" value="@Model.Price.ToString("N2") ₺" readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Toplam Maliyet</label>
+                    <input class="form-control" value="@((Model.Quantity * Model.Price).ToString("N2")) ₺" readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Tarih</label>
+                    <input class="form-control" value="@Model.Date.ToString("dd.MM.yyyy")" readonly />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <a asp-action="Index" class="cancel-button">
+                Geri Dön
+            </a>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.MaterialId"
+               class="save-button">
+                <i class="bi bi-pencil"></i>
+                Malzemeyi Düzenle
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

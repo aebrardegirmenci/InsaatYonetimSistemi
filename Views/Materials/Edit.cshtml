@@ -1,0 +1,119 @@
+﻿@model InsaatYonetimi.Models.Material
+
+@{
+    ViewData["Title"] = "Malzemeyi Düzenle";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+        <div>
+            <h1>Malzemeyi Düzenle</h1>
+            <p>Malzeme bilgilerini güncelleyin.</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Malzemelere Dön
+        </a>
+    </div>
+
+    <div class="project-form-card">
+
+        <form asp-action="Edit" method="post">
+
+            <input type="hidden" asp-for="MaterialId" />
+
+            <div class="form-section">
+
+                <h2>Malzeme Bilgileri</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-item">
+                        <label asp-for="Name">Malzeme Adı</label>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+
+                    <div class="form-item">
+                        <label asp-for="Category">Kategori</label>
+                        <input asp-for="Category" class="form-control" />
+                    </div>
+
+                    <div class="form-item">
+                        <label asp-for="ProjectId">Proje</label>
+
+                        <select asp-for="ProjectId" class="form-control">
+                            @foreach (var project in ViewBag.Projects)
+                            {
+                                <option value="@project.ProjectId">
+                                    @project.Name
+                                </option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-item">
+                        <label asp-for="SupplierId">Tedarikçi</label>
+
+                        <select asp-for="SupplierId" class="form-control">
+                            @foreach (var supplier in ViewBag.Suppliers)
+                            {
+                                <option value="@supplier.SupplierId">
+                                    @supplier.Name
+                                </option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-item">
+                        <label asp-for="Unit">Birim</label>
+                        <input asp-for="Unit" class="form-control" />
+                    </div>
+
+                    <div class="form-item">
+                        <label asp-for="Quantity">Miktar</label>
+                        <input asp-for="Quantity"
+                               type="number"
+                               step="1"
+                               value="@Convert.ToInt32(Model.Quantity)"
+                               class="form-control" />
+                    </div>
+
+                    <div class="form-item">
+                        <label asp-for="Price">Birim Fiyat</label>
+                        <input asp-for="Price"
+                               type="number"
+                               step="0.01"
+                               class="form-control" />
+                    </div>
+
+                    <div class="form-item">
+                        <label asp-for="Date">Tarih</label>
+                        <input asp-for="Date"
+                               type="date"
+                               class="form-control" />
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <a asp-action="Index" class="cancel-button">
+                    İptal
+                </a>
+
+                <button type="submit" class="save-button">
+                    <i class="bi bi-check-lg"></i>
+                    Değişiklikleri Kaydet
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

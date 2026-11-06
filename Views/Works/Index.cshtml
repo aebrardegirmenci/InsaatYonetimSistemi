@@ -1,0 +1,124 @@
+﻿@model IEnumerable<InsaatYonetimi.Models.Work>
+
+@{
+    ViewData["Title"] = "İşçilikler";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>İşçilikler</h1>
+            <p>İşçilerin hangi projede kaç gün çalıştığını yönetin.</p>
+        </div>
+
+        <a asp-action="Create"
+           class="save-button">
+            <i class="bi bi-plus-lg"></i>
+            Yeni İşçilik Ekle
+        </a>
+
+    </div>
+
+    <div class="project-list-card">
+
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+
+                <table class="project-table">
+
+                    <thead>
+                        <tr>
+                            <th>İşçi</th>
+                            <th>Proje</th>
+                            <th>Başlangıç</th>
+                            <th>Gün Sayısı</th>
+                            <th>Günlük Ücret</th>
+                            <th>Toplam Maliyet</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            var totalCost = item.DayCount * item.Worker.DailyPay;
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        @item.Worker.Name
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    @item.Project.Name
+                                </td>
+
+                                <td>
+                                    @item.StartDate.ToString("dd.MM.yyyy")
+                                </td>
+
+                                <td>
+                                    @item.DayCount gün
+                                </td>
+
+                                <td>
+                                    @item.Worker.DailyPay.ToString("N2") ₺
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        @totalCost.ToString("N2") ₺
+                                    </strong>
+                                </td>
+
+                                <td>
+
+                                    <div class="project-actions">
+
+                                        <a asp-action="Details"
+                                           asp-route-id="@item.WorkId"
+                                           title="Detay">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.WorkId"
+                                           title="Düzenle">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@item.WorkId"
+                                           title="Sil">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+        else
+        {
+            <div style="padding: 40px; text-align: center; color: #888;">
+                Henüz kayıtlı işçilik bulunmuyor.
+            </div>
+        }
+
+    </div>
+
+</div>

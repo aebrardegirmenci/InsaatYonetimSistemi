@@ -1,0 +1,84 @@
+﻿@model InsaatYonetimi.Models.Expense
+
+@{
+    ViewData["Title"] = "Gideri Sil";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Gideri Sil</h1>
+            <p>Bu gideri silmek istediğinize emin misiniz?</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Giderlere Dön
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <div class="form-section">
+
+            <h2>Gider Bilgileri</h2>
+
+            <div class="form-grid">
+
+                <div class="form-item">
+                    <label>Gider Adı</label>
+                    <input value="@Model.Name"
+                           class="form-control"
+                           readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Proje</label>
+                    <input value="@Model.Project.Name"
+                           class="form-control"
+                           readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Tutar</label>
+                    <input value="@Model.Amount.ToString("N2") ₺"
+                           class="form-control"
+                           readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Tarih</label>
+                    <input value="@Model.Date.ToString("dd.MM.yyyy")"
+                           class="form-control"
+                           readonly />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <a asp-action="Index" class="cancel-button">
+                İptal
+            </a>
+
+            <form asp-action="Delete" method="post">
+
+                <input type="hidden" asp-for="ExpenseId" />
+
+                <button type="submit" class="save-button">
+                    <i class="bi bi-trash"></i>
+                    Gideri Sil
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

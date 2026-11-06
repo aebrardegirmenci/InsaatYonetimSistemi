@@ -1,0 +1,103 @@
+﻿@model IEnumerable<InsaatYonetimi.Models.Expense>
+
+@{
+    ViewData["Title"] = "Giderler";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Giderler</h1>
+            <p>Projelerinize ait giderleri buradan yönetin.</p>
+        </div>
+
+        <a asp-action="Create" class="save-button">
+            <i class="bi bi-plus-lg"></i>
+            Yeni Gider Ekle
+        </a>
+
+    </div>
+
+    <div class="project-list-card">
+
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+
+                <table class="project-table">
+
+                    <thead>
+                        <tr>
+                            <th>Gider</th>
+                            <th>Proje</th>
+                            <th>Tutar</th>
+                            <th>Tarih</th>
+                            <th>Açıklama</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <strong>@item.Name</strong>
+                                </td>
+
+                                <td>@item.Project.Name</td>
+
+                                <td>
+                                    <strong>
+                                        @item.Amount.ToString("N2") ₺
+                                    </strong>
+                                </td>
+
+                                <td>@item.Date.ToString("dd.MM.yyyy")</td>
+
+                                <td>@(item.Description ?? "-")</td>
+
+                                <td>
+                                    <div class="project-actions">
+
+                                        <a asp-action="Details"
+                                           asp-route-id="@item.ExpenseId">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.ExpenseId">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@item.ExpenseId">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+        else
+        {
+            <div style="padding: 40px; text-align: center; color: #888;">
+                Henüz kayıtlı gider bulunmuyor.
+            </div>
+        }
+
+    </div>
+
+</div>

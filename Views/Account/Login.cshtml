@@ -1,0 +1,141 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>İnşaat Yönetimi - Giriş</title>
+
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <div class="login-page">
+
+        <div class="login-card">
+
+            <div class="logo-area">
+
+                <div class="logo">
+                    <img src="~/images/loginLogo.png"
+                         style="width: 130px; height: auto;" />
+                </div>
+
+                <h1>İNŞAAT YÖNETİMİ</h1>
+
+                <div class="title-line"></div>
+
+                <p>Hesabınıza giriş yapın</p>
+
+            </div>
+
+            <form asp-controller="Account"
+                  asp-action="Login"
+                  method="post">
+
+                @if (TempData["Message"] != null)
+                {
+                    <div class="success-message">
+                        @TempData["Message"]
+                    </div>
+                }
+
+                <div class="input-area">
+
+                    <span class="input-icon">
+                        <i class="bi bi-person"></i>
+                    </span>
+
+                    <input type="text"
+                           name="UserName"
+                           placeholder="Kullanıcı Adı"
+                           required />
+
+                </div>
+
+                <div class="input-area">
+
+                    <span class="input-icon">
+                        <i class="bi bi-lock"></i>
+                    </span>
+
+                    <input type="password"
+                           name="Password"
+                           placeholder="Şifre"
+                           required />
+
+                    <span class="eye-icon" onclick="showPassword()">
+                        <i class="bi bi-eye"></i>
+                    </span>
+
+                </div>
+
+                <div class="login-options">
+
+                    <label>
+                        <input type="checkbox" />
+                        Beni Hatırla
+                    </label>
+
+                    <a asp-controller="Account"
+                       asp-action="ForgotPassword">
+                        Şifremi Unuttum?
+                    </a>
+
+                </div>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="error-message">
+                        @ViewBag.Error
+                    </div>
+                }
+
+                <button type="submit" class="login-button">
+                    Giriş Yap
+                </button>
+
+                <div class="or-text">
+                    <span></span>
+                    <p>veya</p>
+                    <span></span>
+                </div>
+
+                <div class="register-text">
+
+                    Hesabınız yok mu?
+
+                    <a asp-controller="Account"
+                       asp-action="Register">
+                        Kayıt Ol
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script>
+        function showPassword() {
+
+            var password = document.getElementsByName("Password")[0];
+
+            if (password.type == "password")
+                password.type = "text";
+            else
+                password.type = "password";
+        }
+    </script>
+
+</body>
+</html>

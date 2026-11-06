@@ -1,0 +1,75 @@
+﻿@model InsaatYonetimi.Models.Supplier
+
+@{
+    ViewData["Title"] = "Tedarikçi Detayı";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Tedarikçi Detayı</h1>
+            <p>Tedarikçi bilgilerini görüntüleyin.</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Tedarikçilere Dön
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <div class="form-section">
+
+            <h2>Tedarikçi Bilgileri</h2>
+
+            <div class="form-grid">
+
+                <div class="form-item">
+                    <label>Tedarikçi Adı</label>
+                    <input value="@Model.Name"
+                           class="form-control"
+                           readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Telefon</label>
+                    <input value="@(Model.Phone ?? "-")"
+                           class="form-control"
+                           readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Adres</label>
+                    <input value="@(Model.Address ?? "-")"
+                           class="form-control"
+                           readonly />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <a asp-action="Index" class="cancel-button">
+                Geri Dön
+            </a>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.SupplierId"
+               class="save-button">
+
+                <i class="bi bi-pencil"></i>
+                Tedarikçiyi Düzenle
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

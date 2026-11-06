@@ -1,0 +1,76 @@
+﻿@model InsaatYonetimi.Models.Material
+
+@{
+    ViewData["Title"] = "Malzemeyi Sil";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Malzemeyi Sil</h1>
+            <p>Bu malzemeyi silmek istediğinize emin misiniz?</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Malzemelere Dön
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <div class="form-section">
+
+            <h2>Malzeme Bilgileri</h2>
+
+            <div class="form-grid">
+
+                <div class="form-item">
+                    <label>Malzeme</label>
+                    <input value="@Model.Name" class="form-control" readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Kategori</label>
+                    <input value="@Model.Category" class="form-control" readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Proje</label>
+                    <input value="@Model.Project.Name" class="form-control" readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Tedarikçi</label>
+                    <input value="@Model.Supplier.Name" class="form-control" readonly />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <a asp-action="Index" class="cancel-button">
+                İptal
+            </a>
+
+            <form asp-action="Delete" method="post">
+
+                <input type="hidden" asp-for="MaterialId" />
+
+                <button type="submit" class="save-button">
+                    <i class="bi bi-trash"></i>
+                    Malzemeyi Sil
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

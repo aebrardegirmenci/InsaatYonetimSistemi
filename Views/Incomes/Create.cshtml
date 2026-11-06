@@ -1,0 +1,105 @@
+﻿@model InsaatYonetimi.Models.Income
+
+@{
+    ViewData["Title"] = "Yeni Gelir";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Yeni Gelir</h1>
+            <p>Yeni bir gelir kaydı oluşturun.</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Gelirlere Dön
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <form asp-action="Create" method="post">
+
+            <div class="form-section">
+
+                <h2>Gelir Bilgileri</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-item">
+
+                        <label asp-for="ProjectId">Proje</label>
+
+                        <select asp-for="ProjectId" class="form-control">
+
+                            <option value="">Proje seçin</option>
+
+                            @foreach (var project in ViewBag.Projects)
+                            {
+                                <option value="@project.ProjectId">
+                                    @project.Name
+                                </option>
+                            }
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-item">
+
+                        <label asp-for="Amount">Tutar</label>
+
+                        <input asp-for="Amount"
+                               type="number"
+                               step="0.01"
+                               class="form-control"
+                               placeholder="Örn. 15000" />
+
+                    </div>
+
+                    <div class="form-item">
+
+                        <label asp-for="Date">Tarih</label>
+
+                        <input asp-for="Date"
+                               type="date"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="form-item">
+
+                        <label asp-for="Description">Açıklama</label>
+
+                        <input asp-for="Description"
+                               class="form-control"
+                               placeholder="Gelir hakkında açıklama" />
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <a asp-action="Index" class="cancel-button">
+                    İptal
+                </a>
+
+                <button type="submit" class="save-button">
+                    <i class="bi bi-check-lg"></i>
+                    Geliri Kaydet
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

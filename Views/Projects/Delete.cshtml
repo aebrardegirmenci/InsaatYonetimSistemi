@@ -1,0 +1,153 @@
+﻿@model InsaatYonetimi.Models.Project
+
+@{
+    ViewData["Title"] = "Projeyi Sil";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Projeyi Sil</h1>
+            <p>Bu projeyi silmek istediğinizden emin misiniz?</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Projelere Dön
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <div class="form-section">
+
+            <h2>Proje Bilgileri</h2>
+
+            <div class="form-grid">
+
+                <div class="form-item">
+                    <label>Proje Adı</label>
+                    <div class="form-control">
+                        @Model.Name
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Adres</label>
+                    <div class="form-control">
+                        @Model.Address
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Başlangıç Tarihi</label>
+                    <div class="form-control">
+                        @Model.StartDate
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Bütçe</label>
+                    <div class="form-control">
+                        @Model.Budget.ToString("N2") ₺
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Alan</label>
+                    <div class="form-control">
+                        @(Model.Area.HasValue
+                                                ? Model.Area.Value.ToString("N2") + " m²"
+                                                : "-")
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Kat Sayısı</label>
+                    <div class="form-control">
+                        @(Model.FloorCount.HasValue
+                                                ? Model.FloorCount.ToString()
+                                                : "-")
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Daire Sayısı</label>
+                    <div class="form-control">
+                        @(Model.ApartmentCount.HasValue
+                                                ? Model.ApartmentCount.ToString()
+                                                : "-")
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Durum</label>
+
+                    <div class="form-control">
+
+                        @switch (Model.Status)
+                        {
+                            case InsaatYonetimi.Models.ProjectStatus.DevamEden:
+                                <span class="project-status status-devam">
+                                    <span class="project-status-dot"></span>
+                                    Devam Eden
+                                </span>
+                                break;
+
+                            case InsaatYonetimi.Models.ProjectStatus.Tamamlanan:
+                                <span class="project-status status-tamamlanan">
+                                    <span class="project-status-dot"></span>
+                                    Tamamlanan
+                                </span>
+                                break;
+
+                            case InsaatYonetimi.Models.ProjectStatus.Planlanan:
+                                <span class="project-status status-planlanan">
+                                    <span class="project-status-dot"></span>
+                                    Planlanan
+                                </span>
+                                break;
+
+                            case InsaatYonetimi.Models.ProjectStatus.Beklemede:
+                                <span class="project-status status-beklemede">
+                                    <span class="project-status-dot"></span>
+                                    Beklemede
+                                </span>
+                                break;
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <a asp-action="Index" class="cancel-button">
+                Vazgeç
+            </a>
+
+            <form asp-action="Delete" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="ProjectId" />
+
+                <button type="submit" class="delete-button">
+                    <i class="bi bi-trash"></i>
+                    Projeyi Sil
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

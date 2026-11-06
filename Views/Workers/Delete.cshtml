@@ -1,0 +1,93 @@
+﻿@model InsaatYonetimi.Models.Worker
+
+@{
+    ViewData["Title"] = "İşçiyi Sil";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>İşçiyi Sil</h1>
+            <p>Bu işçiyi silmek istediğinizden emin misiniz?</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            İşçilere Dön
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <div class="form-section">
+
+            <h2>İşçi Bilgileri</h2>
+
+            <div class="form-grid">
+
+                <div class="form-item">
+                    <label>Ad Soyad</label>
+                    <div class="form-control">
+                        @Model.Name
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Meslek</label>
+                    <div class="form-control">
+                        @Model.Job
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Günlük Ücret</label>
+                    <div class="form-control">
+                        @Model.DailyPay.ToString("N2") ₺
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Telefon</label>
+                    <div class="form-control">
+                        @(Model.Phone ?? "-")
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Adres</label>
+                    <div class="form-control">
+                        @(Model.Address ?? "-")
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <a asp-action="Index" class="cancel-button">
+                Vazgeç
+            </a>
+
+            <form asp-action="Delete" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="WorkerId" />
+
+                <button type="submit" class="delete-button">
+                    <i class="bi bi-trash"></i>
+                    İşçiyi Sil
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

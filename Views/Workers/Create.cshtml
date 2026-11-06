@@ -1,0 +1,145 @@
+﻿@model InsaatYonetimi.Models.Worker
+
+@{
+    ViewData["Title"] = "İşçi Ekle";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Yeni İşçi</h1>
+            <p>Yeni bir işçi kaydı oluşturun.</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            İşçilere Dön
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <form asp-action="Create" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <div class="form-section">
+
+                <h2>İşçi Bilgileri</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-item">
+
+                        <label asp-for="Name">
+                            Ad Soyad
+                        </label>
+
+                        <input asp-for="Name"
+                               class="form-control"
+                               placeholder="İşçinin adını ve soyadını girin" />
+
+                        <span asp-validation-for="Name"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-item">
+
+                        <label asp-for="Job">
+                            Meslek
+                        </label>
+
+                        <input asp-for="Job"
+                               class="form-control"
+                               placeholder="Örn. Usta, Kalıpçı, Elektrikçi" />
+
+                        <span asp-validation-for="Job"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-item">
+
+                        <label asp-for="DailyPay">
+                            Günlük Ücret
+                        </label>
+
+                        <input asp-for="DailyPay"
+                               type="number"
+                               step="0.01"
+                               class="form-control"
+                               placeholder="0,00" />
+
+                        <span asp-validation-for="DailyPay"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-item">
+
+                        <label asp-for="Phone">
+                            Telefon
+                        </label>
+
+                        <input asp-for="Phone"
+                               type="tel"
+                               class="form-control"
+                               placeholder="05XX XXX XX XX" />
+
+                        <span asp-validation-for="Phone"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="form-item">
+
+                        <label asp-for="Address">
+                            Adres
+                        </label>
+
+                        <input asp-for="Address"
+                               class="form-control"
+                               placeholder="İşçinin adresini girin" />
+
+                        <span asp-validation-for="Address"
+                              class="text-danger"></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <a asp-action="Index"
+                   class="cancel-button">
+                    İptal
+                </a>
+
+                <button type="submit"
+                        class="save-button">
+                    <i class="bi bi-check-lg"></i>
+                    İşçiyi Kaydet
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

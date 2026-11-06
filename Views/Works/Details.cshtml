@@ -1,0 +1,113 @@
+﻿@model InsaatYonetimi.Models.Work
+
+@{
+    ViewData["Title"] = "İşçilik Detayı";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>İşçilik Detayı</h1>
+            <p>@Model.Worker.Name işçisinin çalışma bilgileri.</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            İşçiliklere Dön
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <div class="form-section">
+
+            <h2>İşçilik Bilgileri</h2>
+
+            <div class="form-grid">
+
+                <div class="form-item">
+                    <label>İşçi</label>
+
+                    <div class="form-control">
+                        @Model.Worker.Name
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Meslek</label>
+
+                    <div class="form-control">
+                        @Model.Worker.Job
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Proje</label>
+
+                    <div class="form-control">
+                        @Model.Project.Name
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Başlangıç Tarihi</label>
+
+                    <div class="form-control">
+                        @Model.StartDate.ToString("dd.MM.yyyy")
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Gün Sayısı</label>
+
+                    <div class="form-control">
+                        @Model.DayCount gün
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Günlük Ücret</label>
+
+                    <div class="form-control">
+                        @Model.Worker.DailyPay.ToString("N2") ₺
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Toplam İşçilik Maliyeti</label>
+
+                    <div class="form-control">
+                        <strong>
+                            @((Model.DayCount * Model.Worker.DailyPay).ToString("N2")) ₺
+                        </strong>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <a asp-action="Index"
+               class="cancel-button">
+                Geri Dön
+            </a>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.WorkId"
+               class="save-button">
+
+                <i class="bi bi-pencil"></i>
+                İşçiliği Düzenle
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

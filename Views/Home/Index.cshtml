@@ -1,0 +1,287 @@
+﻿@model IEnumerable<InsaatYonetimi.Models.Project>
+
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="dashboard">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <img src="~/images/logo.png" />
+        </div>
+
+        <nav class="menu">
+
+            <a href="#" class="menu-item active">
+                <i class="bi bi-house"></i>
+                Ana Sayfa
+            </a>
+
+            <a asp-controller="Projects"
+               asp-action="Index"
+               class="menu-item">
+                <i class="bi bi-building"></i>
+                Projeler
+            </a>
+
+            <a href="/Workers/Index" class="menu-item">
+                <i class="bi bi-people"></i>
+                İşçiler
+            </a>
+
+            <a asp-controller="Works"
+               asp-action="Index"
+               class="menu-item">
+                <i class="bi bi-person-workspace"></i>
+                İşçilikler
+            </a>
+
+            <a asp-controller="Materials"
+               asp-action="Index"
+               class="menu-item">
+                <i class="bi bi-box-seam"></i>
+                Malzemeler
+            </a>
+
+            <a asp-controller="Suppliers"
+               asp-action="Index"
+               class="menu-item">
+                <i class="bi bi-truck"></i>
+                Tedarikçiler
+            </a>
+
+            <a asp-controller="Expenses"
+               asp-action="Index"
+               class="menu-item">
+                <i class="bi bi-wallet2"></i>
+                Giderler
+            </a>
+
+            <a asp-controller="Incomes"
+               asp-action="Index"
+               class="menu-item">
+                <i class="bi bi-arrow-up-circle"></i>
+                Gelirler
+            </a>
+
+            <a asp-controller="Account"
+               asp-action="Settings"
+               class="menu-item">
+                <i class="bi bi-gear"></i>
+                Ayarlar
+            </a>
+
+        </nav>
+
+        <a asp-controller="Account"
+           asp-action="Logout"
+           class="logout-item">
+
+            <i class="bi bi-box-arrow-right"></i>
+            Çıkış Yap
+
+        </a>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <h1>
+                    Hoş geldin, @Context.Session.GetString("UserName")
+                </h1>
+
+                <p>
+                    İnşaat yönetim sistemine genel bakış
+                </p>
+            </div>
+
+        </header>
+
+        <section class="summary-cards">
+
+            <div class="summary-card project-card">
+
+                <div class="card-icon">
+                    <i class="bi bi-folder"></i>
+                </div>
+
+                <div class="card-content">
+                    <span>Toplam Proje</span>
+                    <strong>@ViewBag.ProjectCount</strong>
+                </div>
+
+            </div>
+
+            <div class="summary-card expense-card">
+
+                <div class="card-icon">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+
+                <div class="card-content">
+                    <span>Toplam Gider</span>
+
+                    <strong>
+                        @ViewBag.TotalExpense.ToString("N2") ₺
+                    </strong>
+                </div>
+
+            </div>
+
+            <div class="summary-card income-card">
+
+                <div class="card-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
+                </div>
+
+                <div class="card-content">
+                    <span>Toplam Gelir</span>
+
+                    <strong>
+                        @ViewBag.TotalIncome.ToString("N2") ₺
+                    </strong>
+                </div>
+
+            </div>
+
+            <div class="summary-card budget-card">
+
+                <div class="card-icon">
+                    <i class="bi bi-briefcase"></i>
+                </div>
+
+                <div class="card-content">
+                    <span>Kalan Bütçe</span>
+
+                    <strong>
+                        @ViewBag.RemainingBudget.ToString("N2") ₺
+                    </strong>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="dashboard-card project-dashboard-card">
+
+            <div class="card-header">
+
+                <h2>Projeler</h2>
+
+                <a asp-controller="Projects"
+                   asp-action="Index"
+                   class="view-all">
+                    Tüm Projeler
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="dashboard-project-table">
+
+                    <thead>
+                        <tr>
+                            <th>Proje Adı</th>
+                            <th>Bütçe</th>
+                            <th>Harcanan</th>
+                            <th>Durum</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var project in Model)
+                        {
+                            var materialExpense = project.Materials.Sum(x => x.Quantity * x.Price);
+
+                            var workExpense = project.Works.Sum(x => x.DayCount * x.Worker.DailyPay);
+
+                            var otherExpense = project.Expenses.Sum(x => x.Amount);
+
+                            var spent = materialExpense + workExpense + otherExpense;
+
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        @project.Name
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    @project.Budget.ToString("N2") ₺
+                                </td>
+
+                                <td>
+                                    @spent.ToString("N2") ₺
+                                </td>
+
+                                <td>
+
+                                    @switch (project.Status)
+                                    {
+                                        case InsaatYonetimi.Models.ProjectStatus.DevamEden:
+                                            <span class="project-status status-devam">
+                                                <span class="project-status-dot"></span>
+                                                Devam Ediyor
+                                            </span>
+                                            break;
+
+                                        case InsaatYonetimi.Models.ProjectStatus.Tamamlanan:
+                                            <span class="project-status status-tamamlanan">
+                                                <span class="project-status-dot"></span>
+                                                Tamamlandı
+                                            </span>
+                                            break;
+
+                                        case InsaatYonetimi.Models.ProjectStatus.Planlanan:
+                                            <span class="project-status status-planlanan">
+                                                <span class="project-status-dot"></span>
+                                                Planlandı
+                                            </span>
+                                            break;
+
+                                        case InsaatYonetimi.Models.ProjectStatus.Beklemede:
+                                            <span class="project-status status-beklemede">
+                                                <span class="project-status-dot"></span>
+                                                Beklemede
+                                            </span>
+                                            break;
+                                    }
+
+                                </td>
+
+                                <td>
+
+                                    <a asp-controller="Projects"
+                                       asp-action="Details"
+                                       asp-route-id="@project.ProjectId"
+                                       class="detail-button">
+                                        Detay
+                                        <i class="bi bi-arrow-right"></i>
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>

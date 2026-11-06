@@ -1,0 +1,86 @@
+﻿@model InsaatYonetimi.Models.Supplier
+
+@{
+    ViewData["Title"] = "Tedarikçiyi Düzenle";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+        <div>
+            <h1>Tedarikçiyi Düzenle</h1>
+            <p>Tedarikçi bilgilerini güncelleyin.</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Tedarikçilere Dön
+        </a>
+    </div>
+
+    <div class="project-form-card">
+
+        <form asp-action="Edit" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="SupplierId" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <div class="form-section">
+
+                <h2>Tedarikçi Bilgileri</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-item">
+                        <label asp-for="Name">Tedarikçi Adı</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="form-item">
+                        <label asp-for="Phone">Telefon</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="form-item">
+                        <label asp-for="Address">Adres</label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address"
+                              class="text-danger"></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <a asp-action="Index" class="cancel-button">
+                    İptal
+                </a>
+
+                <button type="submit" class="save-button">
+                    <i class="bi bi-check-lg"></i>
+                    Değişiklikleri Kaydet
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

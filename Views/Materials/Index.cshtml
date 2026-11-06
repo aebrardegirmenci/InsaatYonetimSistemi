@@ -1,0 +1,109 @@
+﻿@model IEnumerable<InsaatYonetimi.Models.Material>
+
+@{
+    ViewData["Title"] = "Malzemeler";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+        <div>
+            <h1>Malzemeler</h1>
+            <p>Projelerinizde kullanılan malzemeleri buradan yönetin.</p>
+        </div>
+
+        <a asp-action="Create" class="save-button">
+            <i class="bi bi-plus-lg"></i>
+            Yeni Malzeme Ekle
+        </a>
+    </div>
+
+    <div class="project-list-card">
+
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+
+                <table class="project-table">
+
+                    <thead>
+                        <tr>
+                            <th>Malzeme</th>
+                            <th>Kategori</th>
+                            <th>Proje</th>
+                            <th>Tedarikçi</th>
+                            <th>Miktar</th>
+                            <th>Birim Fiyat</th>
+                            <th>Toplam</th>
+                            <th>Tarih</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <strong>@item.Name</strong>
+                                </td>
+
+                                <td>@item.Category</td>
+
+                                <td>@item.Project.Name</td>
+
+                                <td>@item.Supplier.Name</td>
+                                <td>@item.Quantity.ToString("N0") @item.Unit</td>
+
+                                <td>@item.Price.ToString("N2") ₺</td>
+
+                                <td>
+                                    <strong>
+                                        @((item.Quantity * item.Price).ToString("N2")) ₺
+                                    </strong>
+                                </td>
+
+                                <td>@item.Date.ToString("dd.MM.yyyy")</td>
+
+                                <td>
+                                    <div class="project-actions">
+
+                                        <a asp-action="Details"
+                                           asp-route-id="@item.MaterialId">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.MaterialId">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@item.MaterialId">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+        else
+        {
+            <div style="padding: 40px; text-align: center; color: #888;">
+                Henüz kayıtlı malzeme bulunmuyor.
+            </div>
+        }
+
+    </div>
+
+</div>

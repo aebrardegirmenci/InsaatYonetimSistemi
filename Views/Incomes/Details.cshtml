@@ -1,0 +1,80 @@
+﻿@model InsaatYonetimi.Models.Income
+
+@{
+    ViewData["Title"] = "Gelir Detayı";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Gelir Detayı</h1>
+            <p>Gelir bilgilerini görüntüleyin.</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Gelirlere Dön
+        </a>
+
+    </div>
+
+    <div class="project-form-card">
+
+        <div class="form-section">
+
+            <h2>Gelir Bilgileri</h2>
+
+            <div class="form-grid">
+
+                <div class="form-item">
+                    <label>Proje</label>
+                    <div class="form-control">
+                        @Model.Project.Name
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Tutar</label>
+                    <div class="form-control">
+                        @Model.Amount.ToString("N2") ₺
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Tarih</label>
+                    <div class="form-control">
+                        @Model.Date
+                    </div>
+                </div>
+
+                <div class="form-item">
+                    <label>Açıklama</label>
+                    <div class="form-control">
+                        @(string.IsNullOrEmpty(Model.Description) ? "-" : Model.Description)
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <a asp-action="Index" class="cancel-button">
+                Geri Dön
+            </a>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.IncomeId"
+               class="save-button">
+                <i class="bi bi-pencil"></i>
+                Geliri Düzenle
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

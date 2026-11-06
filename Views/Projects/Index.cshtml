@@ -1,0 +1,155 @@
+﻿@model IEnumerable<InsaatYonetimi.Models.Project>
+
+@{
+    ViewData["Title"] = "Projeler";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+
+        <div>
+            <h1>Projeler</h1>
+            <p>Projelerinizi buradan yönetin.</p>
+        </div>
+
+        <a asp-action="Create" class="save-button">
+            <i class="bi bi-plus-lg"></i>
+            Yeni Proje Ekle
+        </a>
+
+    </div>
+
+
+    <div class="project-list-card">
+
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+
+                <table class="project-table">
+
+                    <thead>
+                        <tr>
+                            <th>Proje Adı</th>
+                            <th>Adres</th>
+                            <th>Başlangıç</th>
+                            <th>Bütçe</th>
+                            <th>Alan</th>
+                            <th>Kat</th>
+                            <th>Daire</th>
+                            <th>Durum</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <strong>@item.Name</strong>
+                                </td>
+
+                                <td>
+                                    @item.Address
+                                </td>
+
+                                <td>
+                                    @item.StartDate
+                                </td>
+
+                                <td>
+                                    @item.Budget.ToString("N2") ₺
+                                </td>
+
+                                <td>
+                                    @(item.Area.HasValue
+                                                                ? item.Area.Value.ToString("N2") + " m²": "-")
+                                </td>
+
+                                <td>
+                                    @(item.FloorCount.HasValue
+                                                                ? item.FloorCount.ToString(): "-")
+                                 </td>
+
+                                <td>
+                                    @(item.ApartmentCount.HasValue
+                                                                ? item.ApartmentCount.ToString()
+                                                                : "-")
+                                </td>
+
+                                <td>
+                            @switch (item.Status)
+                                    {
+                                        case InsaatYonetimi.Models.ProjectStatus.DevamEden:
+                                            <span class="project-status status-devam">
+                                                <span class="project-status-dot"></span>
+                                                Devam Eden
+                                            </span>
+                                            break;
+
+                                        case InsaatYonetimi.Models.ProjectStatus.Tamamlanan:
+                                            <span class="project-status status-tamamlanan">
+                                                <span class="project-status-dot"></span>
+                                                Tamamlanan
+                                            </span>
+                                            break;
+
+                                        case InsaatYonetimi.Models.ProjectStatus.Planlanan:
+                                            <span class="project-status status-planlanan">
+                                                <span class="project-status-dot"></span>
+                                                Planlanan
+                                            </span>
+                                            break;
+
+                                        case InsaatYonetimi.Models.ProjectStatus.Beklemede:
+                                            <span class="project-status status-beklemede">
+                                                <span class="project-status-dot"></span>
+                                                Beklemede
+                                            </span>
+                                            break;
+                                    }
+                                </td>
+
+                                <td>
+
+                                    <div class="project-actions">
+
+                                        <a asp-action="Details"
+                                           asp-route-id="@item.ProjectId"
+                                           title="Detay">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.ProjectId"
+                                           title="Düzenle">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@item.ProjectId"
+                                           title="Sil">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+
+    </div>
+
+</div>

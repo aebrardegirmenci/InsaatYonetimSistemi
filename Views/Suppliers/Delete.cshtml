@@ -1,0 +1,79 @@
+﻿@model InsaatYonetimi.Models.Supplier
+
+@{
+    ViewData["Title"] = "Tedarikçi Sil";
+}
+
+<div class="project-page">
+
+    <div class="project-header">
+        <div>
+            <h1>Tedarikçi Sil</h1>
+            <p>Bu tedarikçiyi silmek istediğinize emin misiniz?</p>
+        </div>
+
+        <a asp-action="Index" class="back-button">
+            <i class="bi bi-arrow-left"></i>
+            Tedarikçilere Dön
+        </a>
+    </div>
+
+    <div class="project-form-card">
+
+        <div class="form-section">
+
+            <h2>Tedarikçi Bilgileri</h2>
+
+            <div class="form-grid">
+
+                <div class="form-item">
+                    <label>Tedarikçi Adı</label>
+                    <input value="@Model.Name"
+                           class="form-control"
+                           readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Telefon</label>
+                    <input value="@(Model.Phone ?? "-")"
+                           class="form-control"
+                           readonly />
+                </div>
+
+                <div class="form-item">
+                    <label>Adres</label>
+                    <input value="@(Model.Address ?? "-")"
+                           class="form-control"
+                           readonly />
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <a asp-action="Index" class="cancel-button">
+                İptal
+            </a>
+
+            <form asp-action="Delete" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       asp-for="SupplierId" />
+
+                <button type="submit"
+                        class="delete-button">
+                    <i class="bi bi-trash"></i>
+                    Tedarikçiyi Sil
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
